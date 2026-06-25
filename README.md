@@ -27,7 +27,7 @@ Download the [latest release](https://github.com/YahyaZekry/basecamp-linux/relea
 ## Build from source
 
 ```sh
-yarn install
+npm install
 npm run build
 ```
 
