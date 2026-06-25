@@ -1,0 +1,29 @@
+{
+  "name": "basecamp-linux",
+  "productName": "Basecamp for Linux",
+  "baseName": "basecamp",
+  "description": "Unofficial Basecamp GNU/Linux Desktop Client.",
+  "version": "0.5.1",
+  "author": "Yahya Zekry",
+  "license": "MIT",
+  "main": "app.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YahyaZekry/basecamp-linux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YahyaZekry/basecamp-linux/issues"
+  },
+  "keywords": [
+    "Basecamp",
+    "Linux",
+    "Desktop"
+  ],
+  "dependencies": {
+    "electron-settings": "^4.0.2"
+  },
+  "os": [
+    "linux"
+  ]
+}
