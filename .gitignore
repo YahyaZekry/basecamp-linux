@@ -1,6 +1,5 @@
-.yarn/
-app/yarn.lock
 node_modules/
 build/
 dist/
 *.tar.xz
+*.tar.gz

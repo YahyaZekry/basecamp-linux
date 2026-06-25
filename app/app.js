@@ -62,19 +62,12 @@ const basecamp = {
       win.maximize();
     }
 
-    const rawUA = win.webContents.getUserAgent();
-    console.log('[app] original UA:', rawUA);
     const chromeVer = process.versions.chrome;
-    const cleanUA = `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVer} Safari/537.36`;
-    console.log('[app] clean UA:', cleanUA);
+    const osInfo = `${process.platform === 'win32' ? 'Windows NT 10.0' : process.platform === 'darwin' ? 'Macintosh; Intel Mac OS X 10_15_7' : 'X11; Linux x86_64'}`;
+    const cleanUA = `Mozilla/5.0 (${osInfo}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVer} Safari/537.36`;
     win.webContents.userAgent = cleanUA;
-    const { session } = win.webContents;
 
-    session.clearCache().then(() => {
-      win.loadURL(url, { extraHeaders: 'Pragma: no-cache\nCache-Control: no-cache, no-store, must-revalidate' });
-    }).catch(() => {
-      win.loadURL(url);
-    });
+    win.loadURL(url);
   },
 
   addWindowEvents() {
@@ -110,13 +103,6 @@ const basecamp = {
     });
 
     win.webContents
-      .on('console-message', (event) => {
-        console.log(`[PAGE ${event.level}]`, event.message);
-      })
-      .on('script-execution-will-prevented', () => {})
-      .on('devtools-opened', () => {
-        win.webContents.openDevTools({ mode: 'detach' });
-      })
       .on('did-navigate', () => {
         win.webContents.insertCSS(`
           [class*="upgrade"],[class*="update"],[class*="desktop"],[id*="upgrade"],
@@ -131,14 +117,7 @@ const basecamp = {
           try{
             document.querySelectorAll('[class*="upgrade"],[class*="update"],[id*="upgrade"],[id*="update"]').forEach(e=>e.remove());
           }catch(e){}
-          document.title
-        `).then(t => console.log('[PAGE title]', t)).catch(()=>{});
-        win.webContents.executeJavaScript(
-          `navigator.userAgent`
-        ).then(ua => console.log('[PAGE UA]', ua)).catch(()=>{});
-        win.webContents.executeJavaScript(
-          `document.documentElement.outerHTML.substring(0,3000)`
-        ).then(h => console.log('[PAGE html]', h)).catch(()=>{});
+        `).catch(()=>{});
       })
       .on('will-navigate', (event, linkUrl) => {
         const regex = /(37signals\.com|basecamp\.com|accounts\.google\.com)/;
@@ -287,7 +266,7 @@ const basecamp = {
       }
     }
 
-    win.webContents.executeJavaScript('typeof BC !== \'undefined\' && BC.unreads ? BC.unreads.all || 0 : 0').then((result) => {
+    win.webContents.executeJavaScript('typeof BC !== \'undefined\' && BC.unreads ? BC.unreads.all || 0 : (typeof Launchpad !== \'undefined\' && Launchpad.unreads ? Launchpad.unreads : 0)').then((result) => {
       const unreads = result && result.length ? result.length : 0;
 
       win.setTitle(unreads > 0 ? `${fixedTitle} • ${unreads}` : fixedTitle);

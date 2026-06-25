@@ -3,7 +3,7 @@
   "productName": "Basecamp for Linux",
   "baseName": "basecamp",
   "description": "Unofficial Basecamp GNU/Linux Desktop Client.",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "author": "Yahya Zekry",
   "license": "MIT",
   "main": "app.js",

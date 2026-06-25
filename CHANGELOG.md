@@ -4,7 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.6.0] - 2026-06-25
+
+### Added
+- Basecamp 5 compatibility.
+- Upgrade to Electron 42.
+- User-Agent stripped of Electron and Basecamp identifiers.
+- Multi-step login flow (email → password) with proper BC5 form handling.
+- Google sign-in OAuth popup support (opens in-app, 900×720).
+- CSS/JS interstitial removal for upgrade prompts.
+
+### Changed
+- Build with `@electron/packager` (replaced `electron-packager`).
+
+### Fixed
+- "Next" button on login form now works with BC5.
+- Unread badge expression handles both BC4 and BC5 objects.
+- Popup windows sized correctly for OAuth flows.
 
 ## [0.5.1] - 2023-10-29
 
