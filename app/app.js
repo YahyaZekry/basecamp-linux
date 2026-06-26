@@ -63,7 +63,8 @@ const basecamp = {
     }
 
     const chromeVer = process.versions.chrome;
-    const osInfo = `${process.platform === 'win32' ? 'Windows NT 10.0' : process.platform === 'darwin' ? 'Macintosh; Intel Mac OS X 10_15_7' : 'X11; Linux x86_64'}`;
+    const osMap = { win32: 'Windows NT 10.0', darwin: 'Macintosh; Intel Mac OS X 10_15_7' };
+    const osInfo = osMap[process.platform] || 'X11; Linux x86_64';
     const cleanUA = `Mozilla/5.0 (${osInfo}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVer} Safari/537.36`;
     win.webContents.userAgent = cleanUA;
 
@@ -103,7 +104,7 @@ const basecamp = {
     });
 
     win.webContents
-      .on('did-navigate', () => {
+      .on('did-finish-load', () => {
         win.webContents.insertCSS(`
           [class*="upgrade"],[class*="update"],[class*="desktop"],[id*="upgrade"],
           [id*="update"],[id*="desktop"],[class*="interstitial"],[class*="overlay"],
@@ -111,13 +112,11 @@ const basecamp = {
         { display:none!important; }
         body{overflow:auto!important;}
         `);
-      })
-      .on('did-finish-load', () => {
         win.webContents.executeJavaScript(`
           try{
             document.querySelectorAll('[class*="upgrade"],[class*="update"],[id*="upgrade"],[id*="update"]').forEach(e=>e.remove());
           }catch(e){}
-        `).catch(()=>{});
+        `).catch(() => {});
       })
       .on('will-navigate', (event, linkUrl) => {
         const regex = /(37signals\.com|basecamp\.com|accounts\.google\.com)/;
