@@ -3,3 +3,5 @@ build/
 dist/
 *.tar.xz
 *.tar.gz
+CHANGELOG.md
+app/package-lock.json
