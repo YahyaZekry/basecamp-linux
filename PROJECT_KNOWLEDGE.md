@@ -195,6 +195,7 @@ None. The app does not integrate with any external system that reads/writes its 
 - **@electron/packager over electron-packager**: Original used the deprecated `electron-packager` package. Switched to `@electron/packager` (the official successor).
 - **npm over yarn**: Original used yarn 4.0.1 but corepack was unavailable, so migrated to npm for portability.
 - **GitHub repo**: Complete fresh history (1 commit) at `YahyaZekry/basecamp-linux`. No fork relationship to original.
+- **Binary renamed to `basecamp-desktop`**: Changed `baseName` in `app/package.json` from `"basecamp"` to `"basecamp-desktop"` to avoid collision with the official Basecamp CLI (`basecamp`) installed at `~/.local/bin/basecamp`. Desktop entry renamed to `basecamp-desktop.desktop`, install path moved to `~/.local/opt/basecamp-desktop/`. *(2026-06-26)*
 - **compareVersions extracted to pure module**: Separated from `versionChecker.js` into `app/compareVersions.js` so it can be tested without mocking Electron. Kept as property shorthand export (`compareVersions,`) in versionChecker for backward compatibility. *(2026-06-26)*
 
 ---

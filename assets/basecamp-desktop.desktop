@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Basecamp Desktop
+Comment=Basecamp Desktop Client for Linux
+Exec=/opt/basecamp-desktop/basecamp-desktop
+Icon=/opt/basecamp-desktop/resources/assets/icons/white/logo.png
+Terminal=false
+Categories=Office;
